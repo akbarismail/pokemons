@@ -1,12 +1,16 @@
-import './App.css';
-import Page from './pages/Page';
+import { useRoutes } from 'react-router-dom';
+import DetailLocation from './pages/DetailLocation';
+import HomePage from './pages/HomePage';
+import Location from './pages/Location';
 
 function App() {
-  return (
-    <div className='App'>
-      <Page />
-    </div>
-  );
+  let router = useRoutes([
+    { path: '/', element: <HomePage /> },
+    { path: 'location', element: <Location /> },
+    { path: 'location/:id', element: <DetailLocation /> },
+  ]);
+
+  return router;
 }
 
 export default App;

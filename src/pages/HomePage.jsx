@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PokemonList from '../components/PokemonList';
 
-export default function Page() {
+export default function HomePage() {
   const [pokemons, setPokemons] = useState([]);
 
   const fetchPokemos = async () => {

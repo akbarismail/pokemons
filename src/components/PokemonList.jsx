@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from './Card';
-import { array } from 'prop-types';
 import Chosen from './Chosen';
+// import { array } from 'prop-types';
 
 export default function PokemonList({ data }) {
+  const [chosen, setChosen] = useState({
+    name: 'Pikachu',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg',
+  });
+
+  const handleClick = (name, image) => {
+    setChosen({ name, image });
+  };
+
   return (
     <>
-      <Chosen />
+      <Chosen name={chosen.name} image={chosen.image} />
       <div id='pokemon-list' className='grid grid-cols-4 gap-4'>
         {data.map((item) => {
           return (
@@ -15,13 +25,12 @@ export default function PokemonList({ data }) {
               attrImg='imgBulbasaur'
               imgSrc={item.sprites.other.dream_world.front_default}
               title={item.name}
-              onClick={() => {
-                const chosenOne = document.getElementById('chosen-one');
-                chosenOne.innerHTML = `
-                <h2 class='font-bold text-xl mb-2 text-center'>Sang Terpilih</h2>
-                <img src=${item.sprites.other.dream_world.front_default} alt="image-pokemons" class='my-4 mx-auto h-64' />
-                <p class='font-bold text-xl mb-2 text-center'>${item.name}</p>`;
-              }}
+              onClick={() =>
+                handleClick(
+                  item.name,
+                  item.sprites.other.dream_world.front_default
+                )
+              }
               isSelected={true}
             />
           );
@@ -31,6 +40,6 @@ export default function PokemonList({ data }) {
   );
 }
 
-PokemonList.propTypes = {
-  data: array.isRequired,
-};
+// PokemonList.propTypes = {
+//   data: array.isRequired,
+// };
