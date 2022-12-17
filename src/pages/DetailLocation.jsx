@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Card from '../components/Card';
 
@@ -6,6 +7,7 @@ export default function DetailLocation() {
   const { id } = useParams();
   const [detailLoc, setDetailLoc] = useState({});
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const loadDetailLoc = async (id) => {
     try {
@@ -30,6 +32,11 @@ export default function DetailLocation() {
   }`;
   const nameLocation = getNameLoc?.split('-').join(' ');
 
+  const handleClick = (name, chance) => {
+    localStorage.setItem('pokemon-location', JSON.stringify({ name, chance }));
+    navigate('/fight');
+  };
+
   return (
     <div>
       {!loading ? (
@@ -41,7 +48,17 @@ export default function DetailLocation() {
               </h1>
               <div className='grid grid-cols-4 gap-4 my-4'>
                 {detailLoc?.pokemon_encounters?.map((item, idx) => (
-                  <Card key={idx + 1} name={item.pokemon.name} isLocation />
+                  <Card
+                    key={idx + 1}
+                    name={item.pokemon.name}
+                    onClick={() =>
+                      handleClick(
+                        item.pokemon.name,
+                        item.version_details[0].max_chance
+                      )
+                    }
+                    isLocation
+                  />
                 ))}
               </div>
             </div>

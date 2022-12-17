@@ -37,7 +37,9 @@ export default function Card({
               <p className='font-bold text-xl mb-2 text-center'>{name}</p>
             </>
           ) : (
-            <p className='font-bold text-xl mb-2 text-center'>{name}</p>
+            <p className='font-bold text-xl mb-2 text-center' onClick={onClick}>
+              {name}
+            </p>
           )}
         </>
       )}

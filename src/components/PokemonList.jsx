@@ -12,6 +12,7 @@ export default function PokemonList({ data }) {
 
   const handleClick = (name, image) => {
     setChosen({ name, image });
+    localStorage.setItem('my-pokemons', JSON.stringify({ name, image }));
   };
 
   return (
